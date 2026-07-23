@@ -1425,7 +1425,7 @@ let MODES = [
 ];
 
 function triggerLabel(t){
-  if() return 'وقتی حالت آغاز شد'
+  if(t.type==='start_mood') return 'وقتی حالت آغاز شد';
   if(t.type==='presence_in') return 'حضور تشخیص داده شود';
   if(t.type==='presence_out') return 'من خانه نباشم';
   if(t.type==='light') return 'نور محیط کمتر از '+toPersianDigits(t.threshold||100)+' لوکس شود';
@@ -1991,7 +1991,7 @@ function addRuleGroup(rule){
     </div>
     <div class="field-label" style="margin-bottom:6px;">وقتی:</div>
     <select class="select-input trig-type">
-      <option value="manual">فقط با لمس دستی</option>
+      <option value="start_mood">وقتی حالت آغاز شد</option>
       <option value="presence_in">حضور تشخیص داده شود</option>
       <option value="presence_out">من خانه نباشم</option>
       <option value="light">نور محیط کم شود</option>
