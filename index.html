@@ -1425,12 +1425,12 @@ let MODES = [
 ];
 
 function triggerLabel(t){
+  if() return 'وقتی حالت آغاز شد'
   if(t.type==='presence_in') return 'حضور تشخیص داده شود';
   if(t.type==='presence_out') return 'من خانه نباشم';
   if(t.type==='light') return 'نور محیط کمتر از '+toPersianDigits(t.threshold||100)+' لوکس شود';
   if(t.type==='time') return 'ساعت بین '+(t.start||'--')+' تا '+(t.end||'--')+' باشد';
   if(t.type==='button_press') return 'دکمه دیواری فشرده شود';
-  return 'فقط با لمس دستی';
 }
 function actionLabel(a){
   if(a.device==='mode'){
