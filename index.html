@@ -1282,8 +1282,6 @@ input[type=range].real-slider::-moz-range-thumb{
       <div class="btn-row">
         <div class="btn btn-primary" id="connContinueBtn">اتصال</div>
         <div class="btn btn-ghost" id="connSkipBtn">فعلاً رد کن</div>
-        <div class="btn-row" style="margin-top: 10px;">
-          <div class="btn" style="background:var(--danger-dim); color:var(--danger); border-color:transparent;" id="connDisconnectBtn">قطع اتصال از دستگاه</div>
       </div>
     </div>
   </div>
@@ -1305,7 +1303,6 @@ input[type=range].real-slider::-moz-range-thumb{
           <option value="relay2">موتور / رله دوکاره (باز و بسته)</option>
           <option value="plug">پریز یا رله ساده (روشن/خاموش)</option>
           <option value="button">دکمه دیواری (کلید فیزیکی روی دیوار)</option>
-          <option value="knob">ولوم چرخشی (روتاری انکودر)</option>
           <option value="dsensor">سنسور دیجیتال دیگر (حضور و...)</option>
           <option value="asensor">سنسور آنالوگ (نور و...)</option>
         </select>
@@ -1433,8 +1430,7 @@ function triggerLabel(t){
   if(t.type==='light') return 'نور محیط کمتر از '+toPersianDigits(t.threshold||100)+' لوکس شود';
   if(t.type==='time') return 'ساعت بین '+(t.start||'--')+' تا '+(t.end||'--')+' باشد';
   if(t.type==='button_press') return 'دکمه دیواری فشرده شود';
-  if(t.type==='knob_turn') return 'وقتی ولوم چرخید (به میزان '+toPersianDigits(t.amount)+')';
-  if(t.type==='mode_start') return 'وقتی حالت شروع شد...';
+  return 'فقط با لمس دستی';
 }
 function actionLabel(a){
   if(a.device==='mode'){
@@ -2098,28 +2094,6 @@ document.getElementById('saveModeBtn').addEventListener('click', ()=>{
   }
   renderModeList();
   builderOverlay.classList.remove('show');
-});
-  document.addEventListener('input', function(e) {
-  if(e.target.classList.contains('real-slider')) {
-    const lampId = e.target.getAttribute('data-slider');
-    const val = parseInt(e.target.value);
-    const device = DEVICES.find(d => d.id === lampId);
-    
-    if(device) {
-      if(device.kind === 'lamp_dim' || device.kind === 'lamp_rgb') {
-        device.intensity = val;
-        // اگر شدت صفر شد، لامپ خاموش شود و در غیر این صورت روشن باشد
-        device.on = val > 0; 
-      } else if (device.kind === 'curtain') {
-        device.pct = val;
-        device.on = val > 0;
-      }
-      // فراخوانی مجدد رندرها برای اعمال تغییرات در رابط کاربری
-      renderLampGrid();
-      renderLightingBlocks();
-      updateHeroOrb();
-    }
-  }
 });
 
 /* ============================================================
