@@ -2418,7 +2418,27 @@ document.getElementById('connStatusPill').textContent = 'قطع';
 document.getElementById('connStatusPill').classList.add('off');
 document.getElementById('connStatusFoot').textContent = 'برای اتصال، نوع شبکه را از بالای صفحه انتخاب کنید';
 setTimeout(openConnSheet, 350);
-
 </script>
+<script>
+  // پیدا کردن تمام دکمه‌های کلید (سوییچ) در سایت
+  const switches = document.querySelectorAll('.switch');
+  
+  switches.forEach(btn => {
+    btn.addEventListener('click', function() {
+      // تغییر ظاهر دکمه در سایت
+      this.classList.toggle('on');
+      
+      // تشخیص اینکه الان روشن شد یا خاموش
+      let currentState = this.classList.contains('on') ? 'on' : 'off';
+      
+      // ارسال دستور به بورد ESP32
+      fetch(`/api/lamp?state=${currentState}`)
+        .then(response => console.log("دستور ارسال شد: " + currentState))
+        .catch(error => console.error("خطا در ارسال شبکه: ", error));
+    });
+  });
+</script>
+</body>
+</html>
 </body>
 </html>
